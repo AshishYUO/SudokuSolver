@@ -17,9 +17,8 @@ inline bool isValid3_3(int i, int j, int Val) {
 
 void display(vector<vector<char> > &board) {
     for(auto x: board) {
-        for(auto y: x) {
+        for(auto y: x) 
             cout << y << " ";
-        }
         cout << endl;
     }
     cout << endl;
@@ -29,25 +28,14 @@ bool Solve(vector<vector<char> > &board, int i, int j) {
     if(i == board.size() && j == board.size()) 
         return true;
     
-    
     else if(board[i][j] != '.') {
         bool val = false;
         if(j == board.size()-1 && i == board.size()-1) 
             return true;
         else if(j == board.size()-1)
-            val = Solve(board, i+1, 0);
+            return Solve(board, i+1, 0);
         else 
-            val = Solve(board, i, j+1);
-        if(val) {
-            // cout << i << " " << j << endl;
-            // display(board);
-            return val;
-        }
-        else {
-            // cout << i << " " << j << endl;
-            // display(board);
-            return false;
-        }
+            return Solve(board, i, j+1);
     }
     else {
         bool val = false;
@@ -58,10 +46,6 @@ bool Solve(vector<vector<char> > &board, int i, int j) {
                 Hash[3*(i/3)+(j/3)] |= (1<<(Val+18));
                 
                 board[i][j] = Val+'1';
-                // if(i == 1 && j == 1 && Val == 6) {
-                //     cout << i << " " << j << " " << board[i][j] << endl;
-                //     display(board);
-                // }
                 //////////////////////////////////////////////
                 if(j == board.size()-1 && i == board.size()-1) 
                     return true;
@@ -74,8 +58,6 @@ bool Solve(vector<vector<char> > &board, int i, int j) {
                 if(val)
                     return true;
                 else {
-                    // cout << i << " " << j << endl;
-                    // display(board);
                     Hash[i] ^= (1<<Val);
                     Hash[j] ^= (1<<(Val+9));
                     Hash[3*(i/3)+(j/3)] ^= (1<<(Val+18));
@@ -108,7 +90,7 @@ int main() {
                                     {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
                                     {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
                                     {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-                                    {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+                                    {'.', '.', '.', '.', '1', '.', '.', '7', '9'}};
 
     for(int i = 0; i < 9; ++i)
         Hash[i] = 0;
