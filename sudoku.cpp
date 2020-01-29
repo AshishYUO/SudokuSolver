@@ -1,16 +1,21 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+// The hash value is an integer that stores the occurences of a number in 
+// a given row, column or in a 3x3 sub-matrix.
+// The first 9 bits (from LSB) when set, represents that the number exist
+// in row, next 9 bits are for column and the next 9 bits are for 3x3 sub-matrix
 int Hash[9] = {0};
 
+// Function that returns true if the value already exist in a given row.
 inline bool isValidRow(int Row, int Val) {
     return Hash[Row] & (1<<Val);
 }
-
+// Function that returns true if the value already exist in a given column.
 inline bool isValidCol(int Col, int Val) {
     return Hash[Col] & (1<<(Val+9));
 }
-
+// Function that returns true if the value already exist in a 3x3 sub-matrix.
 inline bool isValid3_3(int i, int j, int Val) {
     return Hash[3*(i/3)+(j/3)] & (1<<(Val+18));
 }
@@ -68,7 +73,7 @@ bool Solve(vector<vector<char> > &board, int i, int j) {
         return false;
     }
 }
-
+// Function that marks which numbers are already present in puzzle board.
 void mark_first(vector<vector<char> > &board) {
     for(int i = 0; i < board.size(); ++i) {
         for(int j = 0; j < board.size(); ++j) {
